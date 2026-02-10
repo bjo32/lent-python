@@ -1,0 +1,17 @@
+from geo.py import stations_by_distance
+
+def closest_10_stations(stations, p):
+    list_of_stations = []
+    for i in range(9):
+      list_of_stations.append(geo.stations_by_distance(stations, p)[i])
+    return list_of_stations
+
+def furthest_10_stations(stations, p):
+    list_of_stations = []
+    for i in range(1,10):
+        list_of_stations.append(geo.stations_by_distance(stations, p)[-i])
+    return list_of_stations
+    
+
+print(closest_10_stations(stations, (52.2053, 0.1218)))
+print(furthest_10_stations(stations, (52.2053, 0.1218)))
