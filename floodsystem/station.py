@@ -30,6 +30,25 @@ class MonitoringStation:
 
         self.latest_level = None
 
+    def typical_range_consistent(self):
+        """Requirements for 1F:
+        Check if the typical range data is consistent.
+        
+        Returns True if:
+        - typical_range data isn't 'None'
+        - typical_range has two values
+        - the low value is less than or equal to the high value
+        """
+        if self.typical_range is None:
+            return False
+        if len(self.typical_range) != 2:
+            return False
+        if not self.typical_range[0] <= self.typical_range[1]:
+            return False
+        if self.latest_level is not None and self.typical_range[0] <= self.latest_level <= self.typical_range[1]:
+            return True
+        return False
+
     def __repr__(self):
         d = "Station name:     {}\n".format(self.name)
         d += "   id:            {}\n".format(self.station_id)
@@ -38,11 +57,16 @@ class MonitoringStation:
         d += "   town:          {}\n".format(self.town)
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
+        d += "  typical range consistency: {}".format(self.typical_range_consistent())
         return d
-    #def typical_range_consistent(self):
-    #   if self.measure_id:
-    #       if self-typical_range(0)<self.typical_range(1):
-    #           if self.typical_range(0)<self.measure_id <self.typical_range(1): 
-    #       self.typical_range_consistent = True
-    #   else:
-    #       self.typical_range_consistent = False
+    
+
+
+def inconsistent_typical_range_stations(stations):
+    inconsistent_stations = []
+    for station in stations:
+        if not station.typical_range_consistent():
+            inconsistent_stations.append(station)
+    return inconsistent_stations
+
+
