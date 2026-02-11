@@ -39,6 +39,32 @@ class MonitoringStation:
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
         return d
+    
+    #1F
+    def typical_range_consistent(self):
+        """
+        Returns True if the typical range data is consistent, False otherwise.
+        Consistency implies:
+        1. The data is available (not None).
+        2. The high range is greater than the low range.
+        """
+ 
+        if self.typical_range is None:
+            return False
+            
+    
+        low, high = self.typical_range
+        
+        
+        if low is None or high is None:
+            return False
+            
+        if high < low:
+            return False
+            
+        return True
+
+
     #def typical_range_consistent(self):
     #   if self.measure_id:
     #       if self-typical_range(0)<self.typical_range(1):
@@ -46,3 +72,20 @@ class MonitoringStation:
     #       self.typical_range_consistent = True
     #   else:
     #       self.typical_range_consistent = False
+
+
+
+
+def inconsistent_typical_range_stations(stations):
+    """
+    Returns a list of stations that have inconsistent typical range data.
+    """
+    inconsistent_stations = []
+    
+    for station in stations:
+        if not station.typical_range_consistent():
+            inconsistent_stations.append(station)
+            
+    return inconsistent_stations
+
+    
