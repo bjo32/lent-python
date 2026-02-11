@@ -61,3 +61,43 @@ def stations_by_river(stations):
         
     return rivers_dict
 
+# 1E
+
+def rivers_by_station_number(stations, N):
+    """
+    Returns a list of (river name, number of stations) tuples, 
+    sorted by the number of stations. 
+    In the case that there are more rivers with the same number of stations 
+    as the Nth entry, these rivers are included in the list.
+    """
+    
+    stations_on_rivers = stations_by_river(stations)
+    
+
+    count_list = []
+    for river, station_list in stations_on_rivers.items():
+        count_list.append((river, len(station_list)))
+    
+
+    count_list.sort(key=lambda x: (-x[1], x[0]))
+    
+
+    if N >= len(count_list):
+        return count_list
+    
+
+    threshold_count = count_list[N-1][1]
+    
+
+    result = count_list[:N]
+    
+
+    for i in range(N, len(count_list)):
+        if count_list[i][1] == threshold_count:
+            result.append(count_list[i])
+        else:
+            break
+            
+    return result
+
+
