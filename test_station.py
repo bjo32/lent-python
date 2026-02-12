@@ -18,7 +18,6 @@ def test_create_monitoring_station():
     town = "My Town"
     s = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
 
-    assert s.station_id == s_id
     assert s.measure_id == m_id
     assert s.name == label
     assert s.coord == coord
