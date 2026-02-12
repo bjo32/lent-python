@@ -12,19 +12,19 @@ def test_sort():
     list0 = (a, b, c)
 
     # Test sort on 1st entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 0)
+    list1 = floodsystem.utils.sort_by_key(list0, 0)
     assert list1[0] == c
     assert list1[1] == b
     assert list1[2] == a
 
     # Test sort on 2nd entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 1)
+    list1 = floodsystem.utils.sort_by_key(list0, 1)
     assert list1[0] == c
     assert list1[1] == b
     assert list1[2] == a
 
     # Test sort on 3rd entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 2)
+    list1 = floodsystem.utils.sort_by_key(list0, 2)
     assert list1[0] == b
     assert list1[1] == a
     assert list1[2] == c
@@ -39,19 +39,19 @@ def test_reverse_sort():
     list0 = (a, b, c)
 
     # Test sort on 1st entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 0, reverse=True)
+    list1 = floodsystem.utils.sort_by_key(list0, 0, reverse=True)
     assert list1[0] == a
     assert list1[1] == b
     assert list1[2] == c
 
     # Test sort on 2nd entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 1, reverse=True)
+    list1 = floodsystem.utils.sort_by_key(list0, 1, reverse=True)
     assert list1[0] == a
     assert list1[1] == b
     assert list1[2] == c
 
     # Test sort on 3rd entry
-    list1 = floodsystem.utils.sorted_by_key(list0, 2, reverse=True)
+    list1 = floodsystem.utils.sort_by_key(list0, 2, reverse=True)
     assert list1[0] == c
     assert list1[1] == a
     assert list1[2] == b
