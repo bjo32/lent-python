@@ -30,6 +30,7 @@ jobs:
         run: |
           pytest -v
           python test_geo.py
+          python test_station.py
 
       - name: Run Deliverable 1 code
         run: |
