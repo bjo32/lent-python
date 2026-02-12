@@ -27,4 +27,23 @@ def test_create_monitoring_station():
     assert s.town == town
 
 def test_typical_range_consistent():
-    return True
+
+     # Create a station
+    s_id = "test-s-id"
+    m_id = "test-m-id"
+    label = "some station"
+    coord = (-2.0, 4.0)
+    trange = (-2.3, 3.4445)
+    river = "River X"
+    town = "My Town"
+    s = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
+    assert s.typical_range_consistent() == True
+    s.typical_range = None
+    assert s.typical_range_consistent() == False
+    s.typical_range = (None, 3.4445)
+    assert s.typical_range_consistent() == False
+    s.typical_range = (-2.3, None)
+    assert s.typical_range_consistent() == False
+    s.typical_range = (3.4445, -2.3)
+    assert s.typical_range_consistent() == False
+
