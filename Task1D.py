@@ -3,14 +3,24 @@ from floodsystem.stationdata import build_station_list
 from floodsystem.geo import rivers_with_station, stations_by_river
 from floodsystem.station import MonitoringStation
 
-def test_rivers_with_station():
+def test_1d():
     stations = [
         MonitoringStation("sta1", "m1","s1",(0, 0), (0, 1), "River Cam", "Town1"),
         MonitoringStation("sta1", "m2","s2",(0, 0), (0, 1), "River Cam", "Town2"),
         MonitoringStation("sta3", "m3","s3",(0, 0), (0, 1), "River Thames", "Town3")]
     
-    rivers = rivers_with_station(stations)
-    assert rivers == {"River Cam", "River Thames"}
+    
+    def test_rivers_with_station():
+        rivers = rivers_with_station(stations)
+        assert len(rivers) == 2
+        assert rivers == {"River Cam", "River Thames"}
+    
+    def test_stations_by_river():
+        river_map = stations_by_river(stations)
+        assert len(river_map["River Cam"]) == 2
+        assert len(river_map["River Thames"]) == 1
+
+
 
 
 def run():
