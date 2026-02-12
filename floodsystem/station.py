@@ -43,20 +43,17 @@ class MonitoringStation:
     #1F
     def typical_range_consistent(self):
         """
-        Returns True if the typical range data is consistent, False otherwise.
-        Consistency implies:
-        1. The data is available (not None).
-        2. The high range is greater than the low range.
+        checking data
         """
- 
-        if self.typical_range is None:
+    
+        if self.typical_range is None:      #check if the typical range data itself is missing
             return False
             
     
-        low, high = self.typical_range
+        low, high = self.typical_range  #divide the tuple into individual low and high variables
         
         
-        if low is None or high is None:
+        if low is None or high is None:     #check if any value is missing
             return False
             
         if high < low:
@@ -64,25 +61,6 @@ class MonitoringStation:
             
         return True
 
-
-    def typical_range_consistent(self):
-        """Requirements for 1F:
-        Check if the typical range data is consistent.
-        
-        Returns True if:
-        - typical_range data isn't 'None'
-        - typical_range has two values
-        - the low value is less than or equal to the high value
-        """
-        if self.typical_range is None:
-            return False
-        if len(self.typical_range) != 2:
-            return False
-        if not self.typical_range[0] <= self.typical_range[1]:
-            return False
-        if self.latest_level is not None and self.typical_range[0] <= self.latest_level <= self.typical_range[1]:
-            return True
-        return False
 
 
 

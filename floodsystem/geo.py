@@ -49,10 +49,11 @@ def stations_within_radius(stations, centre, r):
 def rivers_with_station(stations):
     """
     Returns a set of the names of the rivers with a monitoring station.
+    Use a set to automatically handle deduplication
     """
     rivers = set()
     for station in stations:
-        if station.river:       # ensure station has river 
+        if station.river:       # ensure station has a valid river name
             rivers.add(station.river)
     return rivers
 
@@ -73,34 +74,35 @@ def stations_by_river(stations):
 # 1E
 
 def rivers_by_station_number(stations, N):
-    """
-    Returns a list of (river name, number of stations) tuples, 
-    sorted by the number of stations. 
-    In the case that there are more rivers with the same number of stations 
-    as the Nth entry, these rivers are included in the list.
-    """
     
     stations_on_rivers = stations_by_river(stations)
     
-
+    """
+    Returns a list of (river name, number of stations) tuples
+    """
     count_list = []
     for river, station_list in stations_on_rivers.items():
-        count_list.append((river, len(station_list)))
+        count_list.append((river, len(station_list))) #name, number of stations
     
-
-    count_list.sort(key=lambda x: (-x[1], x[0]))
-    
+    """
+    sort the list by the number of stations. 
+    """
+    count_list.sort(key=lambda x: (-x[1], x[0]))        
+    #x[1]is number of station in each element, (-) to ensure descending list
+    #when number same, sort by name
 
     if N >= len(count_list):
         return count_list
     
 
-    threshold_count = count_list[N-1][1]
+    threshold_count = count_list[N-1][1]        #get the count of the Nth river
     
 
     result = count_list[:N]
     
-
+    """
+    if there are more rivers with the same number of stations as the Nth entry, these rivers are included in the list.
+    """
     for i in range(N, len(count_list)):
         if count_list[i][1] == threshold_count:
             result.append(count_list[i])

@@ -5,7 +5,6 @@ from floodsystem.stationdata import build_station_list
 def run():
 
     stations = build_station_list()
-    
 
     inconsistent_list = inconsistent_typical_range_stations(stations)
     

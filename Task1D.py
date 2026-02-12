@@ -12,12 +12,12 @@ def run():
     rivers_to_check = ['River Aire', 'River Cam', 'River Thames']
     
     for river in rivers_to_check:
-        stations_on_river = river_map[river]
+
+        stations_on_river = river_map[river]    #get the list of station objects for specific river
         
-        station_names = [s.name for s in stations_on_river]
+        station_names = [s.name for s in stations_on_river]     #extract the name attribute
         station_names.sort()
         print(f"Stations on {river}: {station_names}")
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":      #check if the script is being run directly
     run()
