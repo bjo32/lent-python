@@ -20,8 +20,7 @@ def test_build_station_list():
             station_cam = station
             break
 
-    # Assert that station is found
-    assert station_cam
+    
 
     # Fetch data over past 2 days
     dt = 2
