@@ -1,6 +1,17 @@
 
 from floodsystem.stationdata import build_station_list
 from floodsystem.geo import rivers_with_station, stations_by_river
+from floodsystem.station import MonitoringStation
+
+def test_rivers_with_station():
+    stations = [
+        MonitoringStation("sta1", "m1","s1",(0, 0), (0, 1), "River Cam", "Town1"),
+        MonitoringStation("sta1", "m2","s2",(0, 0), (0, 1), "River Cam", "Town2"),
+        MonitoringStation("sta3", "m3","s3",(0, 0), (0, 1), "River Thames", "Town3")]
+    
+    rivers = rivers_with_station(stations)
+    assert rivers == {"River Cam", "River Thames"}
+
 
 def run():
     stations = build_station_list()
