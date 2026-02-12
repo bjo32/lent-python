@@ -42,8 +42,10 @@ class MonitoringStation:
     
     #1F
     def typical_range_consistent(self):
-        """
-        checking data
+        """Check if the typical range data is consistent and valid.
+        
+        Returns True if typical_range is a valid tuple with (low, high) values
+        where low < high, and both values are not None. Returns False otherwise.
         """
     
         if self.typical_range is None:      #check if the typical range data itself is missing
