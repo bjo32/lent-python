@@ -71,7 +71,7 @@ def relative_water_level(stations):
         low, high = station.typical_range
         if station.latest_level is None:
             return None
-        return (station.latest_level - low) / (high - low)
+        return ((station.latest_level - low) / (high - low))
 
 
 def inconsistent_typical_range_stations(stations):
