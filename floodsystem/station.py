@@ -64,14 +64,14 @@ class MonitoringStation:
             
         return True
 
-def relative_water_level(stations):
-    for station in stations:
-        if station.typical_range is None:
+    def relative_water_level(self):
+        """Return the relative water level of this station."""
+        if self.typical_range is None:
             return None
-        low, high = station.typical_range
-        if station.latest_level is None:
+        low, high = self.typical_range
+        if self.latest_level is None:
             return None
-        return ((station.latest_level - low) / (high - low))
+        return ((self.latest_level - low) / (high - low))
 
 
 def inconsistent_typical_range_stations(stations):

@@ -1,18 +1,21 @@
-from floodsystem.stationdata import build_station_list, update_water_levels
-from floodsystem.station import relative_water_level
-from floodsystem.flood import stations_level_over_threshold
+from floodsystem.station import MonitoringStation
 
-stations = build_station_list()
-update_water_levels(stations)
-def run():
-    # Build list of stations
-    stations = build_station_list()
-
-    # Update latest level data for all stations
-    update_water_levels(stations)
-    for station in stations:
-        print(relative_water_level(station))
-    print(stations_level_over_threshold(stations, 0.8))
-    
-run()
-
+     # Create a station
+s_id = "test-s-id"    
+m_id = "test-m-id"
+label = "some station"
+coord = (-2.0, 4.0)
+trange = (-2.3, 3.4)
+river = "test river"
+town = "Town"
+s = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
+print(s)
+print (s.relative_water_level())
+s.latest_level = None
+print (s.relative_water_level())
+s.latest_level = -2.3
+print( s.relative_water_level())
+s.latest_level = 3.4
+print(s.relative_water_level())
+s.latest_level = 0.55
+print(s.relative_water_level())
