@@ -1,17 +1,29 @@
 
-from ast import List, Tuple
-from floodsystem import station, stationdata
+# floodsystem/flood.py
+# functions relating to flood analysis
+
+from floodsystem.utils import sort_by_key
+
 
 def stations_level_over_threshold(stations, tol):
+    """Return list of (station, relative level) tuples for stations
+    whose relative water level is strictly greater than *tol*.
+
+    The returned list is sorted in descending order by relative level.
+    Stations with inconsistent typical ranges or missing levels are
+    ignored.
+    """
 
     over = []
-    for station in stations:
-        if station.typical_range_consistent(station) == True:
-            level = station.relative_water_level()
-        if level is None:
+    for s in stations:
+        # skip stations with bad typical range data
+        if not s.typical_range_consistent():
             continue
-        if level > tol:
-            over.append((station, level))
+        rel = s.relative_water_level()
+        if rel is None:  # no recent reading
+            continue
+        if rel > tol:
+            over.append((s, rel))
 
-    # sort by the second element (level) in reverse order
-    return sort_by_key(over, key=lambda pair: pair[1], reverse=True)
+    # sort by the second element (relative level) in descending order
+    return sort_by_key(over, 1, reverse=True)

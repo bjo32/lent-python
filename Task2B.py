@@ -1,4 +1,6 @@
-from floodsystem import flood, stationdata, station
+from floodsystem import  stationdata, station
+from floodsystem.flood import stations_level_over_threshold
+
      # Create a station
 s_id = "test-s-id"    
 m_id = "test-m-id"
@@ -21,4 +23,5 @@ print(s.relative_water_level())
 
 """demonstrate the station class and its relative water level method."""
 stations = stationdata.build_station_list()
-print(flood.stations_level_over_threshold(stations, 0.8))
+stationdata.update_water_levels(stations)
+print(stations_level_over_threshold(stations, 0.5))
