@@ -27,3 +27,25 @@ def stations_level_over_threshold(stations, tol):
 
     # sort by the second element (relative level) in descending order
     return sort_by_key(over, 1, reverse=True)
+
+
+def stations_highest_rel_level(stations, N):
+    """Return list of the N stations with the highest relative water
+    levels, in descending order of relative level. Stations with
+    inconsistent typical ranges or missing levels are ignored.
+    """
+
+    over = []
+    for s in stations:
+        # skip stations with bad typical range data
+        if not s.typical_range_consistent():
+            continue
+        rel = s.relative_water_level()
+        if rel is None:  # no recent reading
+            continue
+        over.append((s, rel))
+
+    # sort by the second element (relative level) in descending order
+    over = sort_by_key(over, 1, reverse=True)
+
+    return over[:N]
