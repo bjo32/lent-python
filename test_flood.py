@@ -1,6 +1,6 @@
 """Unit tests for the flood submodule."""
 
-from floodsystem.flood import stations_level_over_threshold
+from floodsystem.flood import stations_highest_rel_level, stations_level_over_threshold
 from floodsystem.station import MonitoringStation
 
 
@@ -37,3 +37,10 @@ def test_excludes_none_and_inconsistent():
     s_good = make_station(0.5)
     result = stations_level_over_threshold([s_none, s_bad, s_good], 0.0)
     assert result == [(s_good, 0.5)]
+
+def test_stations_highest_rel_level():
+    s1 = make_station(0.2, (0.0, 1.0))  # rel 0.2
+    s2 = make_station(0.7, (0.0, 1.0))  # rel 0.7
+    s3 = make_station(0.9, (0.0, 1.0))  # rel 0.9
+    result = stations_highest_rel_level([s1, s2, s3], 2)
+    assert [r[0] for r in result] == [s3, s2]
