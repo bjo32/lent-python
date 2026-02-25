@@ -11,8 +11,7 @@ def run():
     # Build stations and update real-time levels
     stations = build_station_list()
     update_water_levels(stations)
-    
-    # get the 5 stations with the highest relative water level (from 2C)
+
     top_5_stations = stations_highest_rel_level(stations, 5)
     
     # data for the past 10 days
@@ -20,12 +19,11 @@ def run():
     
     # Loop through the top 5 stations
     for station, rel_level in top_5_stations: 
-        # Fetch historical data (dates and levels)
+        # Fetch historical dates and levels)
         dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))
         
-        # If data is available, plot it
         if len(dates) > 0 and len(levels) > 0:
-            print(f"Plotting water levels for {station.name}...")
+            print(f"Plotting water levels for {station.name}:")
             plot_water_levels(station, dates, levels)
         else:
             print(f"No historical data available for {station.name}.")

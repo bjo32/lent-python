@@ -9,14 +9,12 @@ def run():
     """
     Plots water levels and a degree 4 polynomial fit over the past 2 days for the 5 stations at highest risk.
     """
-    # 1. Build stations and update real-time levels
     stations = build_station_list()
     update_water_levels(stations)
     
-    # 2. Get the top 5 at-risk stations
     top_5_stations = stations_highest_rel_level(stations, 5)
     
-    # We want data for the past 2 days for the polynomial fit
+    # data for the past 2 days
     dt = 2
     
     # Loop through the stations, fetch history, and plot with fit

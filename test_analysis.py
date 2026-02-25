@@ -2,14 +2,12 @@ import datetime
 import numpy as np
 from floodsystem.analysis import polyfit
 
-# Dummy class for testing plot logic
 class DummyStation:
     def __init__(self, name, typical_range):
         self.name = name
         self.typical_range = typical_range
 
 def test_polyfit():
-    # Create 3 consecutive days
     d1 = datetime.datetime(2026, 1, 1)
     d2 = datetime.datetime(2026, 1, 2)
     d3 = datetime.datetime(2026, 1, 3)

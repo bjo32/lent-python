@@ -1,17 +1,14 @@
-
 import matplotlib.pyplot as plt
 import matplotlib.dates
 import numpy as np
 from floodsystem.analysis import polyfit
 
-#2E
-
 def plot_water_levels(station, dates, levels):
     """
-    Plots the water level data and typical range for a given station.
+    Task 2E: Plots the water level data and typical range for a given station.
     """
     # Plot the actual water level data over time
-    plt.plot(dates, levels, label="actual water Level")
+    plt.plot(dates, levels, label="Water Level")
     
     low, high = station.typical_range
     # Add horizontal lines for typical low and high levels
@@ -19,9 +16,9 @@ def plot_water_levels(station, dates, levels):
     plt.axhline(y=high, color='g', linestyle='--', label="Typical High")
         
     plt.xlabel('Date')
-    plt.ylabel('Water Level /m')
+    plt.ylabel('Water Level (m)')
     
-    # Rotate the date labels on the x-axis
+    # Rotate the date labels on the x-axis so they don't overlap
     plt.xticks(rotation=45)
     
     plt.title(station.name)
