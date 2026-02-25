@@ -1,5 +1,3 @@
-
-
 import datetime
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.datafetcher import fetch_measure_levels
@@ -21,18 +19,17 @@ def run():
     dt = 10 
     
     # Loop through the top 5 stations
-    for station in top_5_stations:
+    for station, rel_level in top_5_stations: 
         # Fetch historical data (dates and levels)
         dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))
         
         # If data is available, plot it
         if len(dates) > 0 and len(levels) > 0:
             print(f"Plotting water levels for {station.name}...")
-            # 调用你在 floodsystem/plot.py 中写的函数
             plot_water_levels(station, dates, levels)
         else:
             print(f"No historical data available for {station.name}.")
 
 if __name__ == "__main__":
-    print("*** Task 2E: CUED Part IA Flood Monitoring and Warning System ***")
     run()
+
