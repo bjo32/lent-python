@@ -1,6 +1,6 @@
 """Unit tests for the flood submodule."""
 
-from floodsystem.flood import stations_highest_rel_level, stations_level_over_threshold
+from floodsystem.flood import stations_highest_rel_level, stations_level_over_threshold, town_flood_warnings
 from floodsystem.station import MonitoringStation
 
 
@@ -52,5 +52,5 @@ def test_town_flood_warnings():
     s1.town = "TownA"
     s2.town = "TownB"
     s3.town = "TownC"
-    result = flood_risk([s1, s2, s3])
+    result = town_flood_warnings([s1, s2, s3])
     assert result == [("TownC", 1.2, "severe"), ("TownB", 0.85, "high"), ("TownA", 0.5, "low")]

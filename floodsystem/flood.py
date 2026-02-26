@@ -50,21 +50,35 @@ def stations_highest_rel_level(stations, N):
 
     return over[:N]
 
-def flood_risk(stations):
-    """Return a list of stations at risk of flooding, sorted in descending order by relative water level."""
+def town_flood_warnings(stations):
+    town_max_level = {}
+    
+    for station in stations:
+
+        if station.town is None:
+            continue
+            
+        rel_level = station.relative_water_level()
+        if rel_level is None:
+            continue
+            
+
+        if station.town not in town_max_level or rel_level > town_max_level[station.town]:
+            town_max_level[station.town] = rel_level
+            
     warnings = []
-    for s in stations:
-        if not s.typical_range_consistent():
-            continue
-        rel = s.relative_water_level()
-        if rel is None:
-            continue
-        if rel > 1.0:  # severe flood risk
-            warnings.append((s.town, rel, "severe"))
-        elif rel > 0.8:  # high flood risk
-            warnings.append((s.town, rel, "high"))
-        elif rel > 0.6:  # moderate flood risk
-            warnings.append((s.town , rel, "moderate"))
-        else:  # low flood risk
-            warnings.append((s.town, rel, "low"))
+    
+    for town, level in town_max_level.items():
+        if level >= 2.0:
+            risk = 'Severe'
+        elif level >= 1.5:
+            risk = 'High'
+        elif level >= 1.0:
+            risk = 'Moderate'
+        else:
+            risk = 'Low'
+            
+        warnings.append((town, risk))
+        
     return warnings
+
