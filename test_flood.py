@@ -1,6 +1,6 @@
 """Unit tests for the flood submodule."""
 
-from floodsystem.flood import stations_highest_rel_level, stations_level_over_threshold
+from floodsystem.flood import flood_risk, stations_highest_rel_level, stations_level_over_threshold
 from floodsystem.station import MonitoringStation
 
 
@@ -44,3 +44,15 @@ def test_stations_highest_rel_level():
     s3 = make_station(0.9, (0.0, 1.0))  # rel 0.9
     result = stations_highest_rel_level([s1, s2, s3], 2)
     assert [r[0] for r in result] == [s3, s2]
+
+def test_town_flood_warnings():
+    s1 = make_station(0.5, (0.0, 1.0))  # rel 0.5
+    s2 = make_station(0.85, (0.0, 1.0))  # rel 0.85
+    s3 = make_station(1.2, (0.0, 1.0))
+    s4 = make_station(1.5, (0.0, 1.0))  # rel 1.5
+    s1.town = "TownA"
+    s2.town = "TownB"
+    s3.town = "TownC"
+    s4.town = "TownC"
+    result = flood_risk([s1, s2, s3, s4])
+    assert result == [("TownC", 1.5, "severe"), ("TownB", 0.85, "high"), ("TownA", 0.5, "low")]
