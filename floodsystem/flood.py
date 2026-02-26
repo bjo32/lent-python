@@ -49,3 +49,37 @@ def stations_highest_rel_level(stations, N):
     over = sort_by_key(over, 1, reverse=True)
 
     return over[:N]
+
+
+
+def town_flood_warnings(stations):
+    town_max_level = {}
+    
+    for station in stations:
+
+        if station.town is None:
+            continue
+            
+        rel_level = station.relative_water_level()
+        if rel_level is None:
+            continue
+            
+
+        if station.town not in town_max_level or rel_level > town_max_level[station.town]:
+            town_max_level[station.town] = rel_level
+            
+    warnings = []
+    
+    for town, level in town_max_level.items():
+        if level >= 2.0:
+            risk = 'Severe'
+        elif level >= 1.5:
+            risk = 'High'
+        elif level >= 1.0:
+            risk = 'Moderate'
+        else:
+            risk = 'Low'
+            
+        warnings.append((town, risk))
+        
+    return warnings
