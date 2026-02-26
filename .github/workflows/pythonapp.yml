@@ -32,6 +32,7 @@ jobs:
           python test_geo.py
           python test_station.py
           python test_flood.py
+          python test_analysis.py
 
       - name: Run Deliverable 1 code
         run: |
